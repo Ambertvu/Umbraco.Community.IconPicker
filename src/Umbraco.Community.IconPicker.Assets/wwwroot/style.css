@@ -1,0 +1,14 @@
+﻿.custom-svg-icon svg {
+    height: 100px;
+    width: 100px;
+}
+
+.icon-picker-wrapper {
+    display: flex;
+    align-items: center; /* vertically align elements */
+    gap: 8px; /* optional: space between elements */
+}
+
+span.highlight {
+    font-weight: bold;
+}

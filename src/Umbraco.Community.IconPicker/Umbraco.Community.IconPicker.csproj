@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Description>This package adds an IconPicker that can pick symbols from a sprite</Description>
+		<RepositoryUrl>TODO</RepositoryUrl>
+		<Version>13.0.1</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Umbraco.Cms.Core" Version="13.12.0" />
+		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="13.12.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Umbraco.Community.IconPicker.Assets\Umbraco.Community.IconPicker.Assets.csproj" />
+	</ItemGroup>
+</Project>

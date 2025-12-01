@@ -1,0 +1,11 @@
+﻿{
+  "css": [
+    "~/App_Plugins/Umbraco.Community.IconPicker/style.css"
+  ],
+  "javascript": [
+    "~/App_Plugins/Umbraco.Community.IconPicker/iconpicker.controller.js",
+    "~/App_Plugins/Umbraco.Community.IconPicker/iconpicker.overlay.controller.js",
+    "~/App_Plugins/Umbraco.Community.IconPicker/iconpicker.api.resource.js",
+    "~/App_Plugins/Umbraco.Community.IconPicker/dropdown/sprite.dropdown.controller.js"
+  ]
+}

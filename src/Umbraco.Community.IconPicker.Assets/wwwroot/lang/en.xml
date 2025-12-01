@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language alias="en" intName="English (UK)" localName="English (UK)" lcid="" culture="en-GB">
+	<area alias="iconPicker">
+		<key alias="overlayTitle">Choose an icon</key>
+		<key alias="filter">Type to filter</key>
+		<key alias="noItemsAvailable">No items available</key>
+		<key alias="search">Search</key>
+	</area>
+</language>

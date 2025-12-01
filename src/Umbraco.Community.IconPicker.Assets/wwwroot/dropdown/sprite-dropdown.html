@@ -1,0 +1,6 @@
+﻿<div ng-controller="Dropdown.Controller as vm">
+    <div class="icon-picker-wrapper">
+        <select ng-model="vm.selectedFolder" ng-change="vm.selectFolder()" required ng-options="folder for folder in vm.folders"> </select> <span class="highlight">/</span>
+        <select ng-model="vm.selectedItem" ng-show="vm.showSpritePicker" ng-change="vm.select()" required ng-options="sprite.name for sprite in vm.items"> </select>
+    </div>
+</div>

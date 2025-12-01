@@ -1,0 +1,38 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Home>
+
+@using Clean.Core.Models.ViewModels
+@using Umbraco.Community.IconPicker.Extensions
+@using Umbraco.Community.IconPicker.PropertyEditors.IconPicker
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
+
+@{
+    Layout = "master.cshtml";
+}
+
+@await Html.PartialAsync("~/Views/Partials/pageHeader.cshtml", new PageHeaderViewModel(Model.Name, Model.Title, Model.Subtitle, Model.MainImage))
+
+@if (Model.ContentRows != null)
+{
+    <article>
+        <div class="container">
+            <div class="row">
+                <div>
+                    <h2>Icon Picker</h2>
+                    <strong>Model.Icon.Name -> Returns the icon name</strong> <br/>@Model.Icon.Name<br/><br/>
+                    <strong>Model.Icon.GetFullPath() -> Returns the path to the sprite, including the fragment identifier (e.g. "/icons.svg#icon-name")-> </strong><br/> @Model.Icon.GetHref()<br/><br/>
+                    <strong>Model.Icon.ToSvgTag() -> Returns the full SVG markup tag for this icon.</strong><br/> @Model.Icon.ToSvgTag()<br/><br/>
+                    <strong>Example usage:</strong><br/>
+                    <svg aria-hidden="true">
+                        <use xlink:href="@Model.Icon.GetHref()" />
+                    </svg>
+                    <svg><use href="@Model.Icon.GetHref()" /></svg>
+
+                    @Html.Raw(Model.Icon.ToSvgTag())
+                </div>
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    @Html.GetBlockListHtml(Model.ContentRows)
+                </div>
+            </div>
+        </div>
+    </article>
+}

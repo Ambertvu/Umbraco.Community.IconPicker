@@ -1,0 +1,26 @@
+﻿<div ng-controller="IconPicker.Controller as vm">
+    <div class="umb-property-editor umb-mediapicker umb-mediapicker-single">
+        <div class="flex flex-wrap error">
+            <ul class="umb-sortable-thumbnails">
+                <li class="umb-sortable-thumbnails__wrapper" ng-if="vm.allowAdd === false">
+                    <span class="custom-svg-icon">
+                        <span ng-bind-html="vm.selectedItem.htmlString"></span>
+                    </span>
+                    <div class="umb-sortable-thumbnails__actions">
+                        <button aria-label="Edit icon" type="button" class="umb-sortable-thumbnails__action btn-reset" ng-click="vm.openIconPicker()">
+                            <i class="icon icon-edit" aria-hidden="true"></i>
+                        </button>
+                        <button aria-label="Remove" type="button" class="umb-sortable-thumbnails__action -red btn-reset" ng-click="vm.removeSelectedIcon()">
+                            <i class="icon icon-delete" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </li>
+                <li style="border: none;" class="add-wrapper unsortable" ng-if="vm.allowAdd">
+                    <button aria-label="Open icon picker" type="button" class="add-link add-link-square btn-reset" ng-click="vm.openIconPicker()">
+                        <i class="icon icon-add large" aria-hidden="true"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

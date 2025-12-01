@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language alias="nl" intName="Dutch" localName="Dutch" lcid="1043" culture="nl-NL">
+	<area alias="iconPicker">
+		<key alias="overlayTitle">kies een icoon</key>
+		<key alias="filter">Typ om te filteren</key>
+		<key alias="noItemsAvailable">Geen items beschikbaar</key>
+		<key alias="search">Zoeken</key>
+	</area>
+</language>

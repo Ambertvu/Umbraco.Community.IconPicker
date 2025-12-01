@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Community.IconPicker.Site.13.x", "examples\Umbraco.Community.IconPicker.Site.13.x\Umbraco.Community.IconPicker.Site.13.x.csproj", "{DFDD4A20-50D8-4D2E-8EF4-2A4F6FBAF7F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Community.IconPicker", "src\Umbraco.Community.IconPicker\Umbraco.Community.IconPicker.csproj", "{B1EE7307-911C-4E37-8D66-3C5F73E2044E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Community.IconPicker.Assets", "src\Umbraco.Community.IconPicker.Assets\Umbraco.Community.IconPicker.Assets.csproj", "{5C8093A8-65DD-49F9-BE25-A635533E1F7E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DFDD4A20-50D8-4D2E-8EF4-2A4F6FBAF7F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFDD4A20-50D8-4D2E-8EF4-2A4F6FBAF7F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFDD4A20-50D8-4D2E-8EF4-2A4F6FBAF7F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFDD4A20-50D8-4D2E-8EF4-2A4F6FBAF7F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1EE7307-911C-4E37-8D66-3C5F73E2044E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1EE7307-911C-4E37-8D66-3C5F73E2044E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1EE7307-911C-4E37-8D66-3C5F73E2044E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1EE7307-911C-4E37-8D66-3C5F73E2044E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C8093A8-65DD-49F9-BE25-A635533E1F7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C8093A8-65DD-49F9-BE25-A635533E1F7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C8093A8-65DD-49F9-BE25-A635533E1F7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C8093A8-65DD-49F9-BE25-A635533E1F7E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DFDD4A20-50D8-4D2E-8EF4-2A4F6FBAF7F4} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {83580C7B-A9AC-4BD9-B460-F56A76CE7FC8}
+	EndGlobalSection
+EndGlobal
