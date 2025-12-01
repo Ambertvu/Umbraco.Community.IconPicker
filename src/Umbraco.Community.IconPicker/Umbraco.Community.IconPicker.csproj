@@ -5,8 +5,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<Description>This package adds an IconPicker that can pick symbols from a sprite</Description>
-		<RepositoryUrl>TODO</RepositoryUrl>
-		<Version>13.0.1</Version>
+		<RepositoryUrl>https://github.com/Ambertvu/Umbraco.Community.IconPicker</RepositoryUrl>
+		<Version>13.0.4</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

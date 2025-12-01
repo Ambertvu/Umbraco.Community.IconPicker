@@ -6,9 +6,9 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<StaticWebAssetBasePath>App_Plugins/Umbraco.Community.IconPicker</StaticWebAssetBasePath>
 		<Description>Assets package for Umbraco.Community.IconPicker</Description>
-		<RepositoryUrl>TODO</RepositoryUrl>
+		<RepositoryUrl>https://github.com/Ambertvu/Umbraco.Community.IconPicker</RepositoryUrl>
 		<RootNamespace>Umbraco.Community.IconPicker.Assets</RootNamespace>
-		<Version>13.0.1</Version>
+		<Version>13.0.4</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
