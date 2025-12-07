@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<Description>This package adds an IconPicker that can pick symbols from a sprite</Description>
 		<RepositoryUrl>https://github.com/Ambertvu/Umbraco.Community.IconPicker</RepositoryUrl>
-		<Version>13.0.4</Version>
+		<Version>13.0.0-beta1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
