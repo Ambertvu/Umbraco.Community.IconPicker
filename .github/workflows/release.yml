@@ -19,15 +19,12 @@ jobs:
       uses: actions/setup-dotnet@v5
       with:
         dotnet-version: '8.0.x'
-        
+
     - name: Build and pack
       run: dotnet pack src/Umbraco.Community.IconPicker/Umbraco.Community.IconPicker.csproj -c Release /p:Version=${{github.ref_name}} -o ./nupkgs
-      
+
     - name: Publish to NuGet
       env:
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
       run: |
-        dotnet nuget push "./nupkgs/*.nupkg" \
-          --api-key "$NUGET_API_KEY" \
-          --source "https://api.nuget.org/v3/index.json" \
-          --skip-duplicate
+        dotnet nuget push "./nupkgs/*.nupkg" --api-key "$NUGET_API_KEY" --source "https://api.nuget.org/v3/index.json" --skip-duplicate
