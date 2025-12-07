@@ -24,7 +24,11 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Build and pack
-      run: dotnet pack src/Umbraco.Community.IconPicker/Umbraco.Community.IconPicker.csproj -c Release /p:Version=${{github.ref_name}} -o ${{ env.OUTPUT }}
+      run: |
+        dotnet pack src/Umbraco.Community.IconPicker/Umbraco.Community.IconPicker.csproj \
+          -c Release /p:Version=${{ github.ref_name }} -o ${{ env.OUTPUT }}
+        dotnet pack src/Umbraco.Community.IconPicker.Assets/Umbraco.Community.IconPicker.Assets.csproj \
+          -c Release /p:Version=${{ github.ref_name }} -o ${{ env.OUTPUT }}
 
     - name: Publish to NuGet
       run: dotnet nuget push "nupkgs/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
