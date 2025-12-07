@@ -4,9 +4,13 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<PackageTags>umbraco plugin package</PackageTags>
+		<Title>IconPicker</Title>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Description>This package adds an IconPicker that can pick symbols from a sprite</Description>
 		<RepositoryUrl>https://github.com/Ambertvu/Umbraco.Community.IconPicker</RepositoryUrl>
-		<Version>13.0.0-beta1</Version>
+		<Version>13.0.0-beta4</Version>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -16,5 +20,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Umbraco.Community.IconPicker.Assets\Umbraco.Community.IconPicker.Assets.csproj" />
+		<None Include="README.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 </Project>
