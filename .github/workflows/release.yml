@@ -21,7 +21,7 @@ jobs:
         dotnet-version: '8.0.x'
         
     - name: Build and pack
-      run: dotnet pack src/Umbraco.Community.IconPicker/Umbraco.Community.IconPicker.csproj -c Release /p:Version=${{github.ref_name}}
+      run: dotnet pack src/Umbraco.Community.IconPicker/Umbraco.Community.IconPicker.csproj -c Release /p:Version=${{github.ref_name}} -o ./nupkgs
 
     - name: Publish to NuGet
       env:
