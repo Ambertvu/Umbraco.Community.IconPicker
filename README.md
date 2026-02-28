@@ -38,3 +38,13 @@ public class AppComposer : IComposer
 }
 ```
 
+# Usage
+After enabling, add an datatype and select a file. Add the datatype to a document type. Now you should be able to use it.
+
+Example:
+
+**Model.Icon.Name** -> Returns the icon name
+
+**Model.Icon.GetFullPath()** -> Returns the path to the sprite, including the fragment identifier (e.g. "/icons.svg#icon-name")
+
+**Model.Icon.ToSvgTag()** -> Returns the full SVG markup tag for this icon.
