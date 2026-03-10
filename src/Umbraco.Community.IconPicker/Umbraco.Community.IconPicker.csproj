@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<PackageTags>umbraco plugin package</PackageTags>
@@ -9,13 +9,14 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Description>This package adds an IconPicker that can pick symbols from a sprite</Description>
 		<RepositoryUrl>https://github.com/Ambertvu/Umbraco.Community.IconPicker</RepositoryUrl>
-		<Version>13.0.3</Version>
+		<Version>17.0.0-beta1</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Umbraco.Cms.Core" Version="[13.0.0,14.0.0)" />
-		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[13.0.0,14.0.0)" />
+		<PackageReference Include="Umbraco.Cms.Core" Version="[17.0.0,18.0.0]" />
+		<PackageReference Include="Umbraco.Cms.Web.Common" Version="[17.0.0,18.0.0]" />
+		<PackageReference Include="Umbraco.Cms.Api.Management" Version="[17.0.0,18.0.0]" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,117 +1,76 @@
 ﻿using System.Xml.Linq;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Html;
-using Umbraco.Cms.Web.BackOffice.Controllers;
-using Umbraco.Community.IconPicker.Common;
-using Umbraco.Community.IconPicker.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Umbraco.Community.IconPicker.Controllers;
 
-public class IconPickerController(IWebHostEnvironment hostingEnvironment) : UmbracoAuthorizedApiController
+[ApiController]
+[Route("/umbraco/api/iconpicker")]
+public class IconPickerController : Controller
 {
-    private readonly string _webRootPath = hostingEnvironment.WebRootPath;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public ApiAttempt<List<string>> GetFolders()
+    public IconPickerController(IWebHostEnvironment webHostEnvironment)
     {
-        if(!Directory.Exists(_webRootPath))
-        {
-            return ApiAttempt<List<string>>.Failed($"No directory found {_webRootPath}");
-        }
-
-        var folders = GetDirectoriesContainingSvgFiles(_webRootPath);
-        if (folders.Any())
-        {
-            return ApiAttempt<List<string>>.Success(folders);
-        }
-
-        return ApiAttempt<List<string>>.Failed("No folders found containing SVG sprites in the wwwroot folder");
+        _webHostEnvironment = webHostEnvironment;
     }
 
-    public ApiAttempt<List<Symbol>> GetSprites(string path)
+    [HttpGet("sprites")]
+    public IActionResult GetSprites()
     {
-        var fullPath = Path.Join(_webRootPath, path);
-        if (!Directory.Exists(fullPath))
+        var spritesPath = Path.Combine(_webHostEnvironment.WebRootPath, "svgsprites");
+        if (!Directory.Exists(spritesPath))
         {
-            return ApiAttempt<List<Symbol>>.Failed($"No directory found {path}");
+            return NotFound("No svgsprites folder found in wwwroot");
         }
 
-        var svgFiles = GetSvgFiles(fullPath);
+        var svgFiles = Directory.EnumerateFiles(spritesPath, "*.svg")
+            .Select(path => new
+            {
+                name = Path.GetFileNameWithoutExtension(path),
+                path = "/" + Path.GetRelativePath(_webHostEnvironment.WebRootPath, path).Replace("\\", "/")
+            })
+            .ToList();
 
         if (svgFiles.Count == 0)
         {
-            return ApiAttempt<List<Symbol>>.Failed("No files found in directory");
+            return NotFound("No SVG files found in wwwroot/svgsprites");
         }
 
-        var sprites = svgFiles.Select(GetSprite).OfType<Symbol>().ToList();
-
-        if (sprites.Any())
-        {
-            return ApiAttempt<List<Symbol>>.Success(sprites);
-        }
-        return ApiAttempt<List<Symbol>>.Failed("No sprites found!");
+        return Ok(svgFiles);
     }
 
-    public ApiAttempt<List<SpriteImage>> GetImagesFromSprite(string path)
+    [HttpGet("icons")]
+    public async Task<IActionResult> GetIcons([FromQuery] string spritePath)
     {
-        var fullPath = Path.Join(_webRootPath, path);
-
-        var file = GetSprite(fullPath);
-        if (file == null)
+        try
         {
-            return ApiAttempt<List<SpriteImage>>.Failed($"Could not find file at path {path}");
-        }
-
-        var symbols = XElement.Parse(System.IO.File.ReadAllText(fullPath)).Elements();
-        var imageList = symbols.Where(x => x.Name.LocalName == PackageConstants.PropertyEditors.IconPicker.SvgSymbolName)
-            .Select(symbol => new SpriteImage
+            var fullPath = Path.Combine(_webHostEnvironment.WebRootPath, spritePath.TrimStart('/'));
+            if (!System.IO.File.Exists(fullPath))
             {
-                Name = symbol.Attribute("id")?.Value,
-                Path = "/" + path
-            }).ToList();
+                return NotFound($"Sprite file not found at path: {spritePath}");
+            }
 
-        return ApiAttempt<List<SpriteImage>>.Success(imageList);
-    }
+            var svgContent = await System.IO.File.ReadAllTextAsync(fullPath);
+            var doc = XDocument.Parse(svgContent);
 
-    private Symbol? GetSprite(string path)
-    {
-        if (!Path.IsPathRooted(path))
-        {
-            return null;
-        }
-        if (!System.IO.File.Exists(path))
-        {
-            return null;
-        }
-        return new Symbol
+            var iconIds = doc.Root?
+                .Elements()
+                .Where(e => e.Name.LocalName == "symbol")
+                .Select(e => e.Attribute("id")?.Value)
+                .Where(id => !string.IsNullOrEmpty(id))
+                .ToList();
+
+            if (iconIds == null || iconIds.Count == 0)
             {
-                Name = Path.GetFileName(path),
-                NiceName = Path.GetFileNameWithoutExtension(path),
-                Path = Path.GetRelativePath(_webRootPath, path).Replace("\\", "/")
-            };
-    }
+                return NotFound("No icons found in the sprite file");
+            }
 
-    public ApiAttempt<HtmlString> GetSpriteImageHtml(string name, string path)
-    {
-        if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(path))
-        {
-            return ApiAttempt<HtmlString>.Failed("invalid");
+            return Ok(iconIds);
         }
-
-        var svg = new HtmlString($"<svg class='icon {name}'><use xlink:href='{path}#{name}'></use></svg>");
-
-        return ApiAttempt<HtmlString>.Success(svg);
-    }
-
-    private static List<string> GetDirectoriesContainingSvgFiles(string rootPath)
-    {
-        return Directory.EnumerateDirectories(rootPath).Where(ContainsSvgFiles)
-            .Select(directory => new DirectoryInfo(directory).Name).ToList();
-    }
-
-    private static bool ContainsSvgFiles(string path) => GetSvgFiles(path).Any();
-
-    private static List<string> GetSvgFiles(string path)
-    {
-        return Directory.EnumerateFiles(path).Where(file => Path.GetExtension(file).Equals(PackageConstants.PropertyEditors.IconPicker.SvgExtension, StringComparison.OrdinalIgnoreCase)).ToList();
+        catch (Exception ex)
+        {
+            return BadRequest($"Error processing sprite file: {ex.Message}");
+        }
     }
 }

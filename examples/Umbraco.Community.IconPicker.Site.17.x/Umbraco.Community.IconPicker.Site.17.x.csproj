@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <RootNamespace>Umbraco.Community.IconPicker.Site._17.x</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Clean" Version="7.0.5" />
+      <PackageReference Include="Umbraco.Cms" Version="17.2.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\Umbraco.Community.IconPicker\Umbraco.Community.IconPicker.csproj" />
+    </ItemGroup>
+
+</Project>

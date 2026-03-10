@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<StaticWebAssetBasePath>App_Plugins/Umbraco.Community.IconPicker</StaticWebAssetBasePath>
 		<Description>Assets package for Umbraco.Community.IconPicker</Description>
 		<RepositoryUrl>https://github.com/Ambertvu/Umbraco.Community.IconPicker</RepositoryUrl>
 		<RootNamespace>Umbraco.Community.IconPicker.Assets</RootNamespace>
-		<Version>13.0.3</Version>
+		<Version>17.0.0-beta1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

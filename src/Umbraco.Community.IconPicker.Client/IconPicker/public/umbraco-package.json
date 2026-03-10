@@ -1,0 +1,56 @@
+{
+    "$schema": "../../umbraco-package-schema.json",
+    "name": "IconPicker",
+    "version": "17.0.0-beta1",
+    "extensions": [
+        {
+            "type": "propertyEditorUi",
+            "alias": "Umbraco.Community.IconPicker",
+            "name": "IconPicker",
+            "element": "/App_Plugins/Umbraco.Community.IconPicker/iconpicker-property-editor-ui.element.js",
+            "elementName": "iconpicker-property-editor-ui",
+            "meta": {
+                "label": "IconPicker",
+                "icon": "icon-list",
+                "group": "common",
+                "propertyEditorSchemaAlias": "Umbraco.Plain.String",
+                "settings": {
+                    "properties": [
+                        {
+                            "alias": "spriteLocation",
+                            "label": "Select sprite",
+                            "description": "Select an SVG sprite file from wwwroot",
+                            "propertyEditorUiAlias": "Umbraco.Community.IconPicker.SpritePicker"
+                        }
+                    ],
+                    "defaultData": [
+                        {
+                            "alias": "spriteLocation",
+                            "value": "ex. /svgsprites/example-sprite.svg"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "propertyEditorUi",
+            "alias": "Umbraco.Community.IconPicker.SpritePicker",
+            "name": "Icon Picker - Sprite Picker",
+            "element": "/App_Plugins/Umbraco.Community.IconPicker/sprite-picker-property-editor-ui.element.js",
+            "elementName": "sprite-picker-property-editor-ui",
+            "meta": {
+                "label": "Icon Picker - Sprite Picker",
+                "icon": "icon-list",
+                "group": "common"
+            }
+        },
+        {
+            "type": "modal",
+            "alias": "icon-picker-modal",
+            "name": "Icon Picker Modal",
+            "js": "/App_Plugins/Umbraco.Community.IconPicker/icon-picker-dialog.element.js",
+            "elementName": "icon-picker-dialog"
+        }
+    ]
+}
+
