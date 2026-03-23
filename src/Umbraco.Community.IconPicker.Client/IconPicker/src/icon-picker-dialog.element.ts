@@ -47,7 +47,6 @@ export class IconPickerDialogElement extends UmbModalBaseElement<IconPickerModal
             if (!response.ok) throw new Error('Failed to load icons');
 
             const data = await response.json();
-            console.log(this.data.spritePath);
             this._icons = data.map((icon: string) => ({
                 path: `${this.data?.spritePath}`,
                 name: icon
