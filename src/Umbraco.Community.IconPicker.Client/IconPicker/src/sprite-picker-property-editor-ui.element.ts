@@ -1,6 +1,7 @@
 import { LitElement, html, customElement, property, state } from '@umbraco-cms/backoffice/external/lit';
 import type { UmbPropertyEditorUiElement } from '@umbraco-cms/backoffice/property-editor';
 import { UmbElementMixin } from '@umbraco-cms/backoffice/element-api';
+import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth';
 
 interface SpriteOption {
     name: string;
@@ -21,6 +22,15 @@ export class SpritePicker extends UmbElementMixin(LitElement) implements UmbProp
     @state()
     private _error: string | null = null;
 
+    #authContext?: typeof UMB_AUTH_CONTEXT.TYPE;
+
+    constructor() {
+        super();
+        this.consumeContext(UMB_AUTH_CONTEXT, (context) => {
+            this.#authContext = context;
+        });
+    }
+
     async connectedCallback() {
         super.connectedCallback();
         await this.#loadSprites();
@@ -28,7 +38,10 @@ export class SpritePicker extends UmbElementMixin(LitElement) implements UmbProp
 
     async #loadSprites() {
         try {
-            const response = await fetch('/umbraco/api/iconpicker/sprites');
+            const token = await this.#authContext?.getLatestToken();
+            const response = await fetch('/umbraco/management/api/v1/iconpicker/sprites', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
             if (!response.ok) throw new Error('Failed to load sprites');
             this._sprites = await response.json();
         } catch (error) {

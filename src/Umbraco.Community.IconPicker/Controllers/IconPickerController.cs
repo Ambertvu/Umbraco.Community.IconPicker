@@ -1,12 +1,14 @@
 ﻿using System.Xml.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Umbraco.Cms.Api.Management.Controllers;
+using Umbraco.Cms.Api.Management.Routing;
 
 namespace Umbraco.Community.IconPicker.Controllers;
 
-[ApiController]
-[Route("/umbraco/api/iconpicker")]
-public class IconPickerController : Controller
+[VersionedApiBackOfficeRoute("iconpicker")]
+[ApiExplorerSettings(GroupName = "IconPicker")]
+public class IconPickerController : ManagementApiControllerBase
 {
     private readonly IWebHostEnvironment _webHostEnvironment;
 

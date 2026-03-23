@@ -1,18 +1,21 @@
-import { LitElement as f, html as l, property as m, state as h, customElement as y } from "@umbraco-cms/backoffice/external/lit";
-import { UmbElementMixin as g } from "@umbraco-cms/backoffice/element-api";
-var w = Object.defineProperty, E = Object.getOwnPropertyDescriptor, _ = (e) => {
+import { LitElement as y, html as l, property as g, state as u, customElement as C } from "@umbraco-cms/backoffice/external/lit";
+import { UmbElementMixin as E } from "@umbraco-cms/backoffice/element-api";
+import { UMB_AUTH_CONTEXT as k } from "@umbraco-cms/backoffice/auth";
+var S = Object.defineProperty, L = Object.getOwnPropertyDescriptor, f = (e) => {
   throw TypeError(e);
-}, i = (e, t, r, o) => {
-  for (var s = o > 1 ? void 0 : o ? E(t, r) : t, p = e.length - 1, c; p >= 0; p--)
-    (c = e[p]) && (s = (o ? c(t, r, s) : c(s)) || s);
-  return o && s && w(t, r, s), s;
-}, C = (e, t, r) => t.has(e) || _("Cannot " + r), S = (e, t, r) => t.has(e) ? _("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, r), u = (e, t, r) => (C(e, t, "access private method"), r), n, v, d;
-let a = class extends g(f) {
+}, o = (e, t, r, s) => {
+  for (var a = s > 1 ? void 0 : s ? L(t, r) : t, c = e.length - 1, h; c >= 0; c--)
+    (h = e[c]) && (a = (s ? h(t, r, a) : h(a)) || a);
+  return s && a && S(t, r, a), a;
+}, _ = (e, t, r) => t.has(e) || f("Cannot " + r), P = (e, t, r) => (_(e, t, "read from private field"), r ? r.call(e) : t.get(e)), v = (e, t, r) => t.has(e) ? f("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, r), x = (e, t, r, s) => (_(e, t, "write to private field"), t.set(e, r), r), d = (e, t, r) => (_(e, t, "access private method"), r), p, n, m, w;
+let i = class extends E(y) {
   constructor() {
-    super(...arguments), S(this, n), this.value = "", this._sprites = [], this._isLoading = !0, this._error = null;
+    super(), v(this, n), this.value = "", this._sprites = [], this._isLoading = !0, this._error = null, v(this, p), this.consumeContext(k, (e) => {
+      x(this, p, e);
+    });
   }
   async connectedCallback() {
-    super.connectedCallback(), await u(this, n, v).call(this);
+    super.connectedCallback(), await d(this, n, m).call(this);
   }
   render() {
     if (this._isLoading) return l`<uui-loader></uui-loader>`;
@@ -27,42 +30,46 @@ let a = class extends g(f) {
             <uui-select
                 .value=${this.value}
                 .options=${e}
-                @change=${u(this, n, d)}>
+                @change=${d(this, n, w)}>
             </uui-select>
         `;
   }
 };
+p = /* @__PURE__ */ new WeakMap();
 n = /* @__PURE__ */ new WeakSet();
-v = async function() {
+m = async function() {
+  var e;
   try {
-    const e = await fetch("/umbraco/api/iconpicker/sprites");
-    if (!e.ok) throw new Error("Failed to load sprites");
-    this._sprites = await e.json();
-  } catch (e) {
-    this._error = e instanceof Error ? e.message : "Unknown error";
+    const t = await ((e = P(this, p)) == null ? void 0 : e.getLatestToken()), r = await fetch("/umbraco/management/api/v1/iconpicker/sprites", {
+      headers: { Authorization: `Bearer ${t}` }
+    });
+    if (!r.ok) throw new Error("Failed to load sprites");
+    this._sprites = await r.json();
+  } catch (t) {
+    this._error = t instanceof Error ? t.message : "Unknown error";
   } finally {
     this._isLoading = !1;
   }
 };
-d = function(e) {
+w = function(e) {
   this.value = e.target.value, this.dispatchEvent(new CustomEvent("change", { bubbles: !0, composed: !0 }));
 };
-i([
-  m({ type: String })
-], a.prototype, "value", 2);
-i([
-  h()
-], a.prototype, "_sprites", 2);
-i([
-  h()
-], a.prototype, "_isLoading", 2);
-i([
-  h()
-], a.prototype, "_error", 2);
-a = i([
-  y("sprite-picker-property-editor-ui")
-], a);
+o([
+  g({ type: String })
+], i.prototype, "value", 2);
+o([
+  u()
+], i.prototype, "_sprites", 2);
+o([
+  u()
+], i.prototype, "_isLoading", 2);
+o([
+  u()
+], i.prototype, "_error", 2);
+i = o([
+  C("sprite-picker-property-editor-ui")
+], i);
 export {
-  a as SpritePicker
+  i as SpritePicker
 };
 //# sourceMappingURL=sprite-picker-property-editor-ui.element.js.map

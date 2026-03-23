@@ -1,6 +1,7 @@
 import { html, customElement, state } from '@umbraco-cms/backoffice/external/lit';
 import { UmbModalBaseElement } from '@umbraco-cms/backoffice/modal';
 import { IconPickerModalData, SpriteImage } from './iconpicker-property-editor-ui.element';
+import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth';
 
 @customElement('icon-picker-dialog')
 export class IconPickerDialogElement extends UmbModalBaseElement<IconPickerModalData, SpriteImage> {
@@ -16,6 +17,15 @@ export class IconPickerDialogElement extends UmbModalBaseElement<IconPickerModal
     @state()
     private _error: string | null = null;
 
+    #authContext?: typeof UMB_AUTH_CONTEXT.TYPE;
+
+    constructor() {
+        super();
+        this.consumeContext(UMB_AUTH_CONTEXT, (context) => {
+            this.#authContext = context;
+        });
+    }
+
     async connectedCallback() {
         super.connectedCallback();
         await this.#loadIcons();
@@ -30,7 +40,10 @@ export class IconPickerDialogElement extends UmbModalBaseElement<IconPickerModal
 
         try {
             this._isLoading = true;
-            const response = await fetch(`/umbraco/api/iconpicker/icons?spritePath=${encodeURIComponent(this.data.spritePath)}`);
+            const token = await this.#authContext?.getLatestToken();
+            const response = await fetch(`/umbraco/management/api/v1/iconpicker/icons?spritePath=${encodeURIComponent(this.data.spritePath)}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
             if (!response.ok) throw new Error('Failed to load icons');
 
             const data = await response.json();
