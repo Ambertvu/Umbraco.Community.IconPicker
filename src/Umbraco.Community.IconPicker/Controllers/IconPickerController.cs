@@ -23,7 +23,7 @@ public class IconPickerController : ManagementApiControllerBase
         var spritesPath = Path.Combine(_webHostEnvironment.WebRootPath, "svgsprites");
         if (!Directory.Exists(spritesPath))
         {
-            return NotFound("No svgsprites folder found in wwwroot");
+            return Ok(Array.Empty<object>());
         }
 
         var svgFiles = Directory.EnumerateFiles(spritesPath, "*.svg")
@@ -33,11 +33,6 @@ public class IconPickerController : ManagementApiControllerBase
                 path = "/" + Path.GetRelativePath(_webHostEnvironment.WebRootPath, path).Replace("\\", "/")
             })
             .ToList();
-
-        if (svgFiles.Count == 0)
-        {
-            return NotFound("No SVG files found in wwwroot/svgsprites");
-        }
 
         return Ok(svgFiles);
     }

@@ -5,7 +5,7 @@ This repository contains the code for the IconPicker (Umbraco). After installing
 ![iconpicker](https://github.com/user-attachments/assets/fccaaa33-c778-4f8d-ab06-35bebe21c84d)
 
 # Example datatype
-<img width="1093" height="520" alt="image" src="https://github.com/user-attachments/assets/246455ec-6d57-4950-963b-c4aba32398b2" />
+<img width="1093" height="520" alt="image" src="https://raw.githubusercontent.com/user-attachments/assets/246455ec-6d57-4950-963b-c4aba32398b2" />
 
 # Installation
 Installing through command line:
@@ -20,7 +20,7 @@ Or package reference:
 <PackageReference Include="Umbraco.Community.IconPicker" Version="{version-number}" />
 ```
 
-# Configuration
+# Configuration for V13
 After installation, you can enable the IconPicker datatype by using the extension method `AddIconPicker()`. For example, you can do this through a Composer as shown below:
 
 ```csharp
