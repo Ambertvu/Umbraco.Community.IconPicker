@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Umbraco.Cms.Core.Composing;
+using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Community.IconPicker.Controllers;
 
 namespace Umbraco.Community.IconPicker.Compose;
 
-public static class StartupExtensions
+public class IconPickerComposer : IComposer
 {
-    public static IServiceCollection AddIconPicker(this IServiceCollection services)
+    public void Compose(IUmbracoBuilder builder)
     {
-        services.AddControllers()
+        builder.Services.AddControllers()
             .AddApplicationPart(typeof(IconPickerController).Assembly);
-
-        return services;
     }
 }
