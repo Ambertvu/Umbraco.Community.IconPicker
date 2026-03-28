@@ -14,7 +14,7 @@ export default defineConfig({
         emptyOutDir: true,
         sourcemap: true,
         rollupOptions: {
-            external: [/^@umbraco/], // ignore the Umbraco Backoffice package in the build
+            external: [/^@umbraco/],
         },
     },
     base: "/App_Plugins/Umbraco.Community.IconPicker/", // the base path of the app in the browser (used for assets)

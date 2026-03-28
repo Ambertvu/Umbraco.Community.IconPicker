@@ -1,7 +1,7 @@
 {
   "name": "umbraco-community-iconpicker",
   "private": true,
-  "version": "0.0.1",
+  "version": "17.0.1-beta1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,11 +10,11 @@
     "watch": "vite build --watch"
   },
   "dependencies": {
-    "@umbraco-cms/backoffice": "^15.0.0",
+    "@umbraco-cms/backoffice": "^17.0.0",
     "lit": "^3.2.1"
   },
   "devDependencies": {
-    "@umbraco-cms/backoffice": "^15.3.0-rc2",
+    "@umbraco-cms/backoffice": "^17.0.0",
     "typescript": "~5.7.2",
     "vite": "^6.3.5"
   }
