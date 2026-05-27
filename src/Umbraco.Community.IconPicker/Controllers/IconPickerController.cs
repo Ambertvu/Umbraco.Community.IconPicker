@@ -52,7 +52,7 @@ public class IconPickerController : ManagementApiControllerBase
             var doc = XDocument.Parse(svgContent);
 
             var iconIds = doc.Root?
-                .Elements()
+                .Descendants()
                 .Where(e => e.Name.LocalName == "symbol")
                 .Select(e => e.Attribute("id")?.Value)
                 .Where(id => !string.IsNullOrEmpty(id))
