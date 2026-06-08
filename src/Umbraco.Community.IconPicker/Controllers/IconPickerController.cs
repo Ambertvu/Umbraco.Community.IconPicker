@@ -17,45 +17,33 @@ public class IconPickerController : ManagementApiControllerBase
         _webHostEnvironment = webHostEnvironment;
     }
 
-    [HttpGet("sprites")]
-    public IActionResult GetSprites()
-    {
-        var spritesPath = Path.Combine(_webHostEnvironment.WebRootPath, "svgsprites");
-        if (!Directory.Exists(spritesPath))
-        {
-            return Ok(Array.Empty<object>());
-        }
-
-        var svgFiles = Directory.EnumerateFiles(spritesPath, "*.svg")
-            .Select(path => new
-            {
-                name = Path.GetFileNameWithoutExtension(path),
-                path = "/" + Path.GetRelativePath(_webHostEnvironment.WebRootPath, path).Replace("\\", "/")
-            })
-            .ToList();
-
-        return Ok(svgFiles);
-    }
-
     [HttpGet("icons")]
     public async Task<IActionResult> GetIcons([FromQuery] string spritePath)
     {
         try
         {
-            var fullPath = Path.Combine(_webHostEnvironment.WebRootPath, spritePath.TrimStart('/'));
-            if (!System.IO.File.Exists(fullPath))
+            var fileInfo = _webHostEnvironment.WebRootFileProvider.GetFileInfo(spritePath);
+
+            if (!fileInfo.Exists)
             {
                 return NotFound($"Sprite file not found at path: {spritePath}");
             }
 
-            var svgContent = await System.IO.File.ReadAllTextAsync(fullPath);
+            string svgContent;
+            await using (var stream = fileInfo.CreateReadStream())
+            using (var reader = new StreamReader(stream))
+            {
+                svgContent = await reader.ReadToEndAsync();
+            }
+
             var doc = XDocument.Parse(svgContent);
 
             var iconIds = doc.Root?
                 .Descendants()
                 .Where(e => e.Name.LocalName == "symbol")
                 .Select(e => e.Attribute("id")?.Value)
-                .Where(id => !string.IsNullOrEmpty(id))
+                .Where(id => !string.IsNullOrWhiteSpace(id))
+                .Distinct()
                 .ToList();
 
             if (iconIds == null || iconIds.Count == 0)

@@ -1,5 +1,5 @@
 # Introduction 
-This repository contains the code for the IconPicker (Umbraco). After installing the package, a new IconPicker datatype is available. This datatype can be used to select svg icons out of an svgsprite placed in wwwroot/svgsprites.
+This repository contains the code for the IconPicker (Umbraco). After installing the package, a new IconPicker datatype is available. This datatype can be used to select svg icons out of an svg sprite placed anywhere in your site's `wwwroot` folder.
 
 # Example backoffice 
 ![iconpicker](https://github.com/user-attachments/assets/fccaaa33-c778-4f8d-ab06-35bebe21c84d)
@@ -39,7 +39,7 @@ public class AppComposer : IComposer
 ```
 
 # Usage
-After enabling, add an datatype and select a file. Add the datatype to a document type. Now you should be able to use it.
+After enabling, add a datatype and select an svg sprite file using the file picker (you can pick any `.svg` from anywhere in `wwwroot`). Add the datatype to a document type. Now you should be able to use it.
 
 Example:
 
@@ -75,6 +75,11 @@ Examples:
 ```
 
 # Changelog
+
+## 17.1.2
+- **Added:** sprite selection now uses the native static file picker, so you can choose any `.svg` from anywhere in `wwwroot` (not just `wwwroot/svgsprites`). Existing stored sprite paths remain compatible. Thanks to [@mistyn8](https://github.com/mistyn8) ([#2](https://github.com/Ambertvu/Umbraco.Community.IconPicker/pull/2)).
+- **Added:** support for sprites whose `<symbol>` elements are nested inside `<defs>` (e.g. icomoon output). Thanks to [@mistyn8](https://github.com/mistyn8) ([#1](https://github.com/Ambertvu/Umbraco.Community.IconPicker/pull/1)).
+- **Fixed:** duplicate symbol ids are de-duplicated, so an icon no longer appears multiple times (and the duplicates no longer all highlight together) in the picker.
 
 ## 17.1.1
 - **Security:** `ToSvgTag()` now HTML-encodes the sprite href, `altText` and `cssClass` before rendering, preventing HTML/attribute injection.
