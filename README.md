@@ -45,6 +45,43 @@ Example:
 
 **Model.Icon.Name** -> Returns the icon name
 
-**Model.Icon.GetFullPath()** -> Returns the path to the sprite, including the fragment identifier (e.g. "/icons.svg#icon-name")
+**Model.Icon.GetHref()** -> Returns the path to the sprite, including the fragment identifier (e.g. "/icons.svg#icon-name")
 
 **Model.Icon.ToSvgTag()** -> Returns the full SVG markup tag for this icon.
+
+## ToSvgTag() options
+
+`ToSvgTag()` renders a ready-to-use `<svg>` element and accepts a few optional parameters:
+
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `isDecorative` | `bool` | `true` | When `true`, the icon is hidden from assistive technology (`aria-hidden="true" focusable="false"`). Set to `false` for meaningful icons that should be announced. |
+| `altText` | `string` | `""` | Accessible label, used only when `isDecorative` is `false` (rendered as `role="img" aria-label="..."`). |
+| `cssClass` | `string?` | `null` | One or more space-separated CSS classes applied to the `<svg>` element, so you can size and style the icon. |
+
+All values are HTML-encoded before being rendered.
+
+Examples:
+
+```cshtml
+@* Decorative icon (default) *@
+@Model.Icon.ToSvgTag()
+
+@* Meaningful icon with an accessible label *@
+@Model.Icon.ToSvgTag(isDecorative: false, altText: "Download")
+
+@* Add CSS classes for sizing/styling *@
+@Model.Icon.ToSvgTag(cssClass: "icon icon--large")
+```
+
+# Changelog
+
+## 17.1.1
+- **Security:** `ToSvgTag()` now HTML-encodes the sprite href, `altText` and `cssClass` before rendering, preventing HTML/attribute injection.
+- **Added:** optional `cssClass` parameter on `ToSvgTag()` to apply CSS classes to the rendered `<svg>` element.
+
+## 17.1.0
+- **Added:** search field in the icon picker modal to filter icons by name.
+
+## 17.0.0
+- Initial release for Umbraco 17.

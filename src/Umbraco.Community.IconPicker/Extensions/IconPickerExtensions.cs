@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Html;
 using Umbraco.Community.IconPicker.Models;
 
@@ -15,22 +16,34 @@ public static class IconPickerExtensions
     /// Renders this sprite image as an SVG element, including appropriate ARIA attributes
     /// for decorative or assistive (screen-reader) usage.
     /// </summary>
-    public static HtmlString ToSvgTag(this SpriteImage icon, bool isDecorative = true, string altText = "") {
+    /// <param name="icon">The sprite image to render.</param>
+    /// <param name="isDecorative">When <c>true</c>, the icon is hidden from assistive technology; otherwise it is exposed as an image with <paramref name="altText"/> as its label.</param>
+    /// <param name="altText">The accessible label, used only when <paramref name="isDecorative"/> is <c>false</c>.</param>
+    /// <param name="cssClass">An optional CSS class (or space-separated classes) to apply to the <c>&lt;svg&gt;</c> element.</param>
+    public static HtmlString ToSvgTag(this SpriteImage icon, bool isDecorative = true, string altText = "", string? cssClass = null)
+    {
+        var enc = HtmlEncoder.Default;
+        var href = enc.Encode(icon.GetHref());
 
-        var sb = new StringBuilder();
+        var attributes = new StringBuilder();
+        if (!string.IsNullOrWhiteSpace(cssClass))
+        {
+            attributes.Append($"class=\"{enc.Encode(cssClass)}\" ");
+        }
+
         if (isDecorative)
         {
-            sb.Append("aria-hidden=\"true\" focusable=\"false\"");
+            attributes.Append("aria-hidden=\"true\" focusable=\"false\"");
         }
         else
         {
-            sb.Append("role=\"img\"");
+            attributes.Append("role=\"img\"");
             if (!string.IsNullOrWhiteSpace(altText))
             {
-                sb.Append($" aria-label=\"{altText}\"");
+                attributes.Append($" aria-label=\"{enc.Encode(altText)}\"");
             }
         }
 
-        return new HtmlString($"<svg {sb}><use href='{icon.GetHref()}'></use></svg>");
+        return new HtmlString($"<svg {attributes}><use href=\"{href}\"></use></svg>");
     }
 }
