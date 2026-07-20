@@ -1,0 +1,27 @@
+{
+  "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json",
+  "Title": "IconPicker",
+  "Description": "Pick SVG icons straight from your own sprite. IconPicker adds a property editor that reads any SVG sprite in your site's wwwroot folder and lets editors choose a symbol from it — no icon library to install, no duplicate assets. The icons your designer delivered are the icons your editors get.",
+  "Category": "Editor Tools",
+  "AlternateCategory": "Developer Tools",
+  "PackageType": "Package",
+  "LicenseTypes": [ "Free" ],
+  "Tags": [ "icons", "svg", "sprite", "property editor", "backoffice", "editor experience" ],
+  "AuthorDetails": {
+    "Name": "Ambert van Unen",
+    "ImageUrl": "https://github.com/Ambertvu.png"
+  },
+  "DocumentationUrl": "https://github.com/Ambertvu/Umbraco.Community.IconPicker#readme",
+  "IssueTrackerUrl": "https://github.com/Ambertvu/Umbraco.Community.IconPicker/issues",
+  "Screenshots": [
+    {
+      "ImageUrl": "https://github.com/user-attachments/assets/fccaaa33-c778-4f8d-ab06-35bebe21c84d",
+      "Caption": "Choosing an icon from the sprite in the backoffice"
+    },
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/user-attachments/assets/246455ec-6d57-4950-963b-c4aba32398b2",
+      "Caption": "Configuring the IconPicker datatype"
+    }
+  ],
+  "PackagesByAuthor": [ "Umbraco.Community.AdminOnly" ]
+}

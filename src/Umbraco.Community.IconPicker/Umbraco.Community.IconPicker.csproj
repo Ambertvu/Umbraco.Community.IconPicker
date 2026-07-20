@@ -4,11 +4,16 @@
 		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<PackageTags>umbraco plugin package</PackageTags>
+		<!-- umbraco-marketplace is required: the Marketplace sync only imports NuGet
+		     packages carrying this tag. -->
+		<PackageTags>umbraco;umbraco-marketplace;umbraco-package;plugin;icons;svg;property-editor</PackageTags>
 		<Title>IconPicker</Title>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Description>This package adds an IconPicker that can pick symbols from a sprite</Description>
 		<RepositoryUrl>https://github.com/Ambertvu/Umbraco.Community.IconPicker</RepositoryUrl>
+		<!-- The Marketplace looks for umbraco-marketplace.json at the project URL. -->
+		<PackageProjectUrl>https://github.com/Ambertvu/Umbraco.Community.IconPicker</PackageProjectUrl>
+		<Authors>Ambert van Unen</Authors>
 		<Version>17.1.2</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
