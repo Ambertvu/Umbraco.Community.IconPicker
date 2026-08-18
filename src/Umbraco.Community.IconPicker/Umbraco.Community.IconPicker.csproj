@@ -14,7 +14,7 @@
 		<!-- The Marketplace looks for umbraco-marketplace.json at the project URL. -->
 		<PackageProjectUrl>https://github.com/Ambertvu/Umbraco.Community.IconPicker</PackageProjectUrl>
 		<Authors>Ambert van Unen</Authors>
-		<Version>17.1.2</Version>
+		<Version>17.1.4</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 

@@ -23,8 +23,22 @@ const ICON_PICKER_MODAL = new UmbModalToken<IconPickerModalData, SpriteImage>('i
 
 @customElement('iconpicker-property-editor-ui')
 export default class IconpickerPropertyEditorUIElement extends UmbElementMixin(LitElement) implements UmbPropertyEditorUiElement {
+    // The editor uses the Umbraco.Plain.String schema, so a persisted value is
+    // handed back as a JSON string, while a freshly picked value is an object.
     @property({ type: Object })
-    public value: SpriteImage | null = null;
+    public value: SpriteImage | string | null = null;
+
+    get #icon(): SpriteImage | null {
+        const value = this.value;
+        if (!value) return null;
+        if (typeof value !== 'string') return value;
+        try {
+            const parsed = JSON.parse(value);
+            return parsed && typeof parsed === 'object' ? (parsed as SpriteImage) : null;
+        } catch {
+            return null;
+        }
+    }
 
     @property()
     public config!: UmbPropertyEditorConfigCollection;
@@ -44,14 +58,11 @@ export default class IconpickerPropertyEditorUIElement extends UmbElementMixin(L
 
     async #openIconPicker() {
         if (!this.#modalManagerContext) return;
-        console.log(this.config.getValueByAlias('spriteLocation'));
-        console.log(this.spritePath);
         const modal = this.#modalManagerContext.open(this, ICON_PICKER_MODAL, {
             data: {
                 headline: "Choose an icon",
                 spritePath: this.spritePath,
-                currentValue: this.value ?? undefined
-
+                currentValue: this.#icon ?? undefined
             }
         });
 
@@ -68,7 +79,8 @@ export default class IconpickerPropertyEditorUIElement extends UmbElementMixin(L
     }
 
     render() {
-        if (!this.value) {
+        const icon = this.#icon;
+        if (!icon?.path || !icon?.name) {
             return html`
                 <uui-button 
                     look="placeholder" 
@@ -86,7 +98,7 @@ export default class IconpickerPropertyEditorUIElement extends UmbElementMixin(L
                   grid-gap: 20px;">
                 <div slot="icon">
                     <svg style="width: 50px; height: 50px;">
-                        <use href="${this.value.path}#${this.value.name}"></use>
+                        <use href="${icon.path}#${icon.name}"></use>
                     </svg>
                 </div>
                 <div slot="actions">
