@@ -1,0 +1,59 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main", "dev/**" ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        umbraco-major: [ 17, 18 ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build and pack
+        run: |
+          dotnet pack src/Umbraco.Community.IconPicker/Umbraco.Community.IconPicker.csproj \
+            -c Release -p:UmbracoMajor=${{ matrix.umbraco-major }} -o ./nupkgs
+
+  client:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        # The bundle keeps @umbraco-cms/backoffice external, so one build serves every major;
+        # type-check it against each major the package supports.
+        backoffice: [ "17", "18" ]
+
+    defaults:
+      run:
+        working-directory: src/Umbraco.Community.IconPicker.Client/IconPicker
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install
+        run: npm ci
+
+      - name: Use backoffice ${{ matrix.backoffice }}
+        run: npm install --no-save @umbraco-cms/backoffice@^${{ matrix.backoffice }}.0.0
+
+      - name: Type-check
+        run: npx tsc --noEmit -p .

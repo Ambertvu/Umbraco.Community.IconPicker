@@ -96,7 +96,7 @@ export class SpritePicker extends UmbElementMixin(LitElement) implements UmbProp
 
         return html`
             <uui-ref-node name=${this.value}>
-                <uui-icon slot="icon" name="icon-file"></uui-icon>
+                <uui-icon slot="icon" name="icon-document"></uui-icon>
                 <uui-action-bar slot="actions">
                     <uui-button
                         look="secondary"

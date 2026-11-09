@@ -1,0 +1,22 @@
+<Project>
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <NuGetAuditMode>direct</NuGetAuditMode>
+    <!--
+      One source, one package per Umbraco major: build with -p:UmbracoMajor=18. Each major gets its own package
+      (17.x for Umbraco 17, 18.x for Umbraco 18), because a build against one major is not guaranteed to be binary
+      compatible with the next. The package targets the lowest version of the major on purpose; consumers resolve
+      their own (patched) version.
+    -->
+    <UmbracoMajor Condition="'$(UmbracoMajor)' == ''">17</UmbracoMajor>
+    <UmbracoNextMajor>$([MSBuild]::Add($(UmbracoMajor), 1))</UmbracoNextMajor>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageVersion Include="Umbraco.Cms.Core" Version="[$(UmbracoMajor).0.0, $(UmbracoNextMajor).0.0)" />
+    <PackageVersion Include="Umbraco.Cms.Web.Common" Version="[$(UmbracoMajor).0.0, $(UmbracoNextMajor).0.0)" />
+    <PackageVersion Include="Umbraco.Cms.Api.Management" Version="[$(UmbracoMajor).0.0, $(UmbracoNextMajor).0.0)" />
+  </ItemGroup>
+
+</Project>

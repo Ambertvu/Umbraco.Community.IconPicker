@@ -20,6 +20,23 @@ Or package reference:
 <PackageReference Include="Umbraco.Community.IconPicker" Version="{version-number}" />
 ```
 
+Install the version that matches your Umbraco major: 13.x for Umbraco 13, 17.x for Umbraco 17, 18.x for Umbraco 18.
+
+# Building
+The 17.x and 18.x packages are built from the same source. The Umbraco major defaults to 17; pass `UmbracoMajor` to build against another one:
+
+```bash
+dotnet pack src/Umbraco.Community.IconPicker/Umbraco.Community.IconPicker.csproj -c Release -p:UmbracoMajor=18
+```
+
+A release tag sets the major too: tag `18.1.4` builds and publishes the Umbraco 18 package.
+
+The example site for Umbraco 18 (`examples/Umbraco.Community.IconPicker.Site.18.x`) needs the same property:
+
+```bash
+dotnet run --project examples/Umbraco.Community.IconPicker.Site.18.x -p:UmbracoMajor=18
+```
+
 # Configuration for V13
 After installation, you can enable the IconPicker datatype by using the extension method `AddIconPicker()`. For example, you can do this through a Composer as shown below:
 
@@ -75,6 +92,10 @@ Examples:
 ```
 
 # Changelog
+
+## 18.1.4
+- **Added:** support for Umbraco 18, with the same features as 17.1.4.
+- **Fixed:** the selected sprite in the datatype settings now shows a file icon (`icon-file` does not exist in the backoffice icon set).
 
 ## 17.1.2
 - **Added:** sprite selection now uses the native static file picker, so you can choose any `.svg` from anywhere in `wwwroot` (not just `wwwroot/svgsprites`). Existing stored sprite paths remain compatible. Thanks to [@mistyn8](https://github.com/mistyn8) ([#2](https://github.com/Ambertvu/Umbraco.Community.IconPicker/pull/2)).

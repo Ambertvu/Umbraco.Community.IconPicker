@@ -1,0 +1,7 @@
+# Local Umbraco state of this example site
+appsettings-schema*.json
+umbraco-package-schema.json
+/umbraco/Data/
+/umbraco/Logs/
+/umbraco/models/ood.flag
+/wwwroot/media/

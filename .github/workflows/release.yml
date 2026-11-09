@@ -1,5 +1,8 @@
 name: Publish NuGet Package
 
+# Starts when a correctly formatted tag is pushed (e.g. 18.1.4).
+# The first number of the tag is the Umbraco major the package is built against.
+
 env:
   OUTPUT: ./nupkgs
 
@@ -23,12 +26,15 @@ jobs:
       with:
         dotnet-version: '10.0.x'
 
+    - name: Get the Umbraco major from the tag
+      run: echo "UMBRACO_MAJOR=${GITHUB_REF_NAME%%.*}" >> "$GITHUB_ENV"
+
     - name: Build and pack
       run: |
         dotnet pack src/Umbraco.Community.IconPicker/Umbraco.Community.IconPicker.csproj \
-          -c Release /p:Version=${{ github.ref_name }} -o ${{ env.OUTPUT }}
+          -c Release -p:UmbracoMajor=$UMBRACO_MAJOR -p:Version=${{ github.ref_name }} -o ${{ env.OUTPUT }}
         dotnet pack src/Umbraco.Community.IconPicker.Assets/Umbraco.Community.IconPicker.Assets.csproj \
-          -c Release /p:Version=${{ github.ref_name }} -o ${{ env.OUTPUT }}
+          -c Release -p:UmbracoMajor=$UMBRACO_MAJOR -p:Version=${{ github.ref_name }} -o ${{ env.OUTPUT }}
 
     - name: Publish to NuGet
       run: dotnet nuget push "nupkgs/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

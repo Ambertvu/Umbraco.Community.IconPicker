@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <RootNamespace>Umbraco.Community.IconPicker.Site._18.x</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <!-- Razor files are needed for the backoffice to work correctly -->
+        <CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Umbraco.Cms" Version="18.3.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\Umbraco.Community.IconPicker\Umbraco.Community.IconPicker.csproj" />
+    </ItemGroup>
+
+    <!--
+      The package project builds against Umbraco 17 unless told otherwise, and NuGet restore ignores a property set
+      here or on the ProjectReference, so pass it on the command line: dotnet run -p:UmbracoMajor=18
+    -->
+    <Target Name="RequireUmbracoMajor18" BeforeTargets="Restore;Build" Condition="'$(UmbracoMajor)' != '18'">
+      <Error Text="This example site runs on Umbraco 18. Build or run it with -p:UmbracoMajor=18, e.g. dotnet run -p:UmbracoMajor=18" />
+    </Target>
+
+</Project>
